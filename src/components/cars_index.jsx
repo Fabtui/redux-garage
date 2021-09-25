@@ -10,9 +10,11 @@ class CarsIndex extends Component {
   }
 
   render () {
-    console.log(this.props);
     return (
-      <div className="cars-container">
+      <div className="garage-container">
+        <div className="garage">
+          <h1>{this.props.garage}</h1>
+        </div>
         {
           this.props.cars.map((car) => {
             return <Car key={car.id} car={car} />;
@@ -26,6 +28,7 @@ class CarsIndex extends Component {
 function mapStateToProps(state) {
   return {
     cars: state.cars,
+    garage: state.garage
   };
 }
 
