@@ -2,7 +2,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { logger } from 'redux-logger';
+import reduxPromise from 'redux-promise';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { createHistory as history } from 'history';
 // internal modules
@@ -23,7 +25,8 @@ const reducers = combineReducers({
 });
 
 // [...]
-const store = createStore(reducers, initialState);
+const middlewares = applyMiddleware(reduxPromise, logger);
+const store = createStore(reducers, initialState, middlewares);
 
 // render an instance of the component in the DOM
 ReactDOM.render(
@@ -31,6 +34,7 @@ ReactDOM.render(
     <Router history={history}>
       <Switch>
         <Route path="/" component={CarsIndex} />
+        <Route path="/:garage" component={CarsIndex} />
       </Switch>
     </Router>
   </Provider>,
