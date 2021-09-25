@@ -5,18 +5,29 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 
 // internal modules
-import App from './components/app';
+import CarsIndex from './components/cars_index';
+import carsReducer from './reducers/cars_reducer';
 import '../assets/stylesheets/application.scss';
 
 // State and reducers
+const garageName = `garage${Math.floor(10 + (Math.random() * 90))}`; // prompt("What is your garage?") ||
+const initialState = {
+  garage: garageName,
+  cars: []
+};
+
 const reducers = combineReducers({
-  changeMe: (state = null, action) => state
+  garage: (state = null, action) => state,
+  cars: carsReducer
 });
+
+// [...]
+const store = createStore(reducers, initialState);
 
 // render an instance of the component in the DOM
 ReactDOM.render(
-  <Provider store={createStore(reducers)}>
-    <App />
+  <Provider store={store}>
+    <CarsIndex />
   </Provider>,
   document.getElementById('root')
 );
