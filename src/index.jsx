@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 import { createHistory as history } from 'history';
 // internal modules
 import CarsIndex from './components/cars_index';
+import CarShow from './components/cars_show';
 import carsReducer from './reducers/cars_reducer';
 import '../assets/stylesheets/application.scss';
 
@@ -33,8 +34,8 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Switch>
-        <Route path="/" component={CarsIndex} />
-        {/* <Route path="/:garage" component={CarsIndex} /> */}
+        <Route path="/" exact component={CarsIndex} />
+        <Route path="/cars/:id" component={CarShow} />
       </Switch>
     </Router>
   </Provider>,

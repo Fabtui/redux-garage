@@ -1,5 +1,8 @@
 // TODO: add and export your own actions
 export const FETCH_CARS = 'FETCH_CARS';
+export const FETCH_GARAGE = 'FETCH_GARAGE';
+
+const BASE_URL = 'https://wagon-chat.herokuapp.com';
 
 export function fetchCars() {
   const cars = [
@@ -11,5 +14,15 @@ export function fetchCars() {
   return {
     type: FETCH_CARS,
     payload: cars
+  };
+}
+
+export function fetchGarage(garage) {
+  const url = `${BASE_URL}/${garage}/cars`;
+  const promise = fetch(url).then(r => r.json());
+
+  return {
+    type: FETCH_GARAGE,
+    payload: promise // Will be resolved by redux-promise
   };
 }
