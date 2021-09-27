@@ -1,28 +1,43 @@
-// TODO: add and export your own actions
-export const FETCH_CARS = 'FETCH_CARS';
-export const FETCH_GARAGE = 'FETCH_GARAGE';
+const BASE_URL = 'https://wagon-garage-api.herokuapp.com';
 
-const BASE_URL = 'https://wagon-chat.herokuapp.com';
+export function fetchCars(garage) {
+  const url = `${BASE_URL}/${garage}/cars`;
+  const promise = fetch(url)
+    .then(r => r.json());
 
-export function fetchCars() {
-  const cars = [
-    { id: 1, brand: 'Peugeot', model: '106', owner: 'John', plate: 'WOB-ED-42' },
-    { id: 2, brand: 'Renault', model: 'Scenic', owner: 'Paul', plate: 'AAA-12-BC' },
-    { id: 3, brand: 'Aston Martin', model: 'DB Mark III', owner: 'James', plate: '418-ED-94' },
-    { id: 4, brand: 'VW', model: 'Beetle', owner: 'George', plate: '1234-XD-75' }
-  ];
   return {
-    type: FETCH_CARS,
-    payload: cars
+    type: 'FETCH_CARS',
+    payload: promise // Will be resolved by redux-promise
   };
 }
 
-export function fetchGarage(garage) {
-  const url = `${BASE_URL}/${garage}/cars`;
-  const promise = fetch(url).then(r => r.json());
+export function removeCar(history, car) {
+  const url = `${BASE_URL}/cars/${car.id}`;
+  fetch(url, { method: 'DELETE' })
+    .then(r => r.json())
+    .then(() => history.push(""));
 
   return {
-    type: FETCH_GARAGE,
-    payload: promise // Will be resolved by redux-promise
+    type: 'REMOVE_CAR',
+    payload: car
+  };
+}
+
+export function addCar(garage, car, callback) {
+  const url = `${BASE_URL}/${garage}/cars`;
+  const request = fetch(url, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(car)
+  }).then(r => r.json())
+    .then(() => callback());
+
+
+  return {
+    type: 'ADD_CAR',
+    payload: request // Will be resolved by redux-promise
   };
 }
