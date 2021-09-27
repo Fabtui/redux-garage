@@ -25,7 +25,7 @@ class CarsShow extends Component {
       </Aside>,
       <div className="car-container" key="car">
         <div className="car-card">
-          <img className="car-picture" src="/assets/images/logo_square.svg" />
+          <img className="car-picture" src="/assets/images/logo_square.svg" alt="car" />
           <div className="car-details">
             <span>{car.brand} - {car.model}</span>
             <ul>
@@ -46,7 +46,7 @@ class CarsShow extends Component {
 function mapStateToProps(state, ownProps) {
   const id = parseInt(ownProps.match.params.id);
   return {
-    car: state.cars.find((car) => car.id === id),
+    car: state.cars.find(car => car.id === id),
   };
 }
 

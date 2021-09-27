@@ -19,7 +19,6 @@ class CarsNew extends Component {
         <Link to="/">Back to list</Link>
       </Aside>,
       <div key="add" className="form-container" style={{ backgroundImage: "url('/assets/images/form.jpg')"}}>
-        <div className="overlay"></div>
         <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
           <div className="form-group">
             <label htmlFor="InputBrand">Brand</label>
